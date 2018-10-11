@@ -51,6 +51,13 @@ describe Admin::CategoriesController do
       assert assigns(:category).valid?
       assigns(:categories).should_not be_nil
     end
+    
+    it "should edit category" do
+      post:edit, :category => {:name => "general", :keywords => "keys", :permalink => "new link"}
+      assert_response :redirect, :action=> "index"
+      expect(assigns(:category)).not_to be_nil
+      expect(flash[:notice]).to eq("Category was successfully saved.")
+    end
   end
 
   it "test_update" do
